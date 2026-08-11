@@ -4,14 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- ========================================== -->
-    <!-- FT1: A bolinha na aba do navegador (Favicon) -->
-    <!-- ========================================== -->
     <link rel="icon" href="FT1" type="image/png">
 
-    <!-- ========================================== -->
-    <!-- FT2: A imagem ao compartilhar o link (WhatsApp, etc) -->
-    <!-- ========================================== -->
     <meta property="og:title" content="Meta PIX da Galera 🚀">
     <meta property="og:description" content="Acompanhe o progresso da nossa meta e faça a sua parte!">
     <meta property="og:image" content="FT2">
@@ -21,11 +15,9 @@
 
     <title>Meta PIX 🚀</title>
     
-    <!-- Fontes modernas -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Fundo Tecnológico / Dark Mode com gradiente vibrante */
         body { 
             font-family: 'Poppins', sans-serif; 
             background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
@@ -36,7 +28,6 @@
             min-height: 100vh;
         }
 
-        /* Container estilo Glassmorphism (vidro translúcido) */
         .container { 
             max-width: 550px; 
             margin: 0 auto; 
@@ -54,7 +45,6 @@
         h3 { color: #00f2fe; font-size: 1.8rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
         .meta-valor { color: #fff; font-family: 'Space Mono', monospace; }
 
-        /* Barra de Progresso Neon */
         .progress-container { 
             width: 100%; 
             background-color: rgba(0, 0, 0, 0.3); 
@@ -83,7 +73,6 @@
             white-space: nowrap;
         }
 
-        /* Área do PIX */
         .pix-area {
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -107,7 +96,6 @@
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
         }
 
-        /* Input da Chave PIX */
         .chave-pix-container {
             display: flex;
             align-items: center;
@@ -128,7 +116,6 @@
             white-space: nowrap;
         }
 
-        /* Botão Vibrante */
         .btn-copiar {
             background: linear-gradient(90deg, #a855f7, #ec4899);
             color: white;
@@ -150,7 +137,6 @@
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
         }
 
-        /* Listas de Participantes */
         .lists { 
             display: flex; 
             gap: 15px; 
@@ -193,15 +179,13 @@
         <div class="progress-bar" id="progress"><span id="porcentagem-texto"></span></div>
     </div>
     
-    <p style="color: #94a3b8; font-size: 0.85rem; margin-top: -10px;">Encerramento previsto para: <strong>08/09/2026</strong></p>
+    <p style="color: #94a3b8; font-size: 0.85rem; margin-top: -10px;">Encerramento previsto para: <strong>15/09/2026</strong></p>
 
     <div class="pix-area">
         <p style="margin-top: 0;">Envie seu PIX de <span class="valor-destaque">R$ 130,57</span> lendo o QR Code ou copiando a chave abaixo:</p>
         
-        <!-- Imagem do QR Code -->
         <img src="WhatsApp Image 2026-08-11 at 14.45.12.jpeg" alt="QR Code PIX" class="qr-code">
         
-        <!-- Área de Copiar a Chave -->
         <div class="chave-pix-container">
             <div class="chave-pix-texto" id="codigo-pix">00020101021126580014BR.GOV.BCB.PIX0136b644cb9b-24d7-4b73-a202-e8e5c03f97c55204000053039865802BR5925Abner Jezrrel Lopes Dos S6009SAO PAULO62080504daqr63044AD3</div>
             <button class="btn-copiar" id="btn-copiar" onclick="copiarPix()">Copiar</button>
@@ -229,6 +213,11 @@
     const valorPorPessoa = 130.57;
     const meta = 1044.56;
 
+    // "Memória" do site para evitar que a tela pisque ou a animação reinicie
+    let porcentagemAnterior = -1;
+    let htmlPagosAnterior = '';
+    let htmlPendentesAnterior = '';
+
     async function carregarDados() {
         try {
             const resposta = await fetch(linkCSV + "&t=" + new Date().getTime());
@@ -255,19 +244,36 @@
                 }
             });
 
-            document.getElementById('lista-pagos').innerHTML = htmlPagosTmp || '<li style="color: #64748b; border: none;">Nenhum pagamento ainda</li>';
-            document.getElementById('lista-pendentes').innerHTML = htmlPendentesTmp || '<li style="color: #64748b; border: none;">Todos pagaram! 🎉</li>';
+            // Só atualiza as listas se houver mudança de quem pagou
+            const novoPagos = htmlPagosTmp || '<li style="color: #64748b; border: none;">Nenhum pagamento ainda</li>';
+            const novoPendentes = htmlPendentesTmp || '<li style="color: #64748b; border: none;">Todos pagaram! 🎉</li>';
 
-            document.getElementById('arrecadado').textContent = totalArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            
+            if (novoPagos !== htmlPagosAnterior) {
+                document.getElementById('lista-pagos').innerHTML = novoPagos;
+                htmlPagosAnterior = novoPagos;
+            }
+
+            if (novoPendentes !== htmlPendentesAnterior) {
+                document.getElementById('lista-pendentes').innerHTML = novoPendentes;
+                htmlPendentesAnterior = novoPendentes;
+            }
+
             let porcentagem = (totalArrecadado / meta) * 100;
             if (porcentagem > 100) porcentagem = 100;
             
-            document.getElementById('progress').style.width = porcentagem + '%';
-            if (porcentagem > 12) { 
-                document.getElementById('porcentagem-texto').textContent = Math.round(porcentagem) + '%';
-            } else {
-                document.getElementById('porcentagem-texto').textContent = '';
+            // SÓ faz a animação da barra se a porcentagem mudou
+            if (porcentagem !== porcentagemAnterior) {
+                document.getElementById('arrecadado').textContent = totalArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                
+                document.getElementById('progress').style.width = porcentagem + '%';
+                
+                if (porcentagem > 12) { 
+                    document.getElementById('porcentagem-texto').textContent = Math.round(porcentagem) + '%';
+                } else {
+                    document.getElementById('porcentagem-texto').textContent = '';
+                }
+
+                porcentagemAnterior = porcentagem;
             }
 
         } catch (erro) {
@@ -292,7 +298,10 @@
         });
     }
 
+    // Chama a primeira vez
     carregarDados();
+    
+    // Atualiza a cada 3 segundos
     setInterval(carregarDados, 3000);
 
 </script>
