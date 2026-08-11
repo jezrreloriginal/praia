@@ -3,9 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ========================================== -->
+    <!-- FT1: A bolinha na aba do navegador (Favicon) -->
+    <!-- ========================================== -->
+    <link rel="icon" href="FT1" type="image/png">
+
+    <!-- ========================================== -->
+    <!-- FT2: A imagem ao compartilhar o link (WhatsApp, etc) -->
+    <!-- ========================================== -->
+    <meta property="og:title" content="Meta PIX da Galera 🚀">
+    <meta property="og:description" content="Acompanhe o progresso da nossa meta e faça a sua parte!">
+    <meta property="og:image" content="FT2">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="FT2">
+
     <title>Meta PIX 🚀</title>
+    
     <!-- Fontes modernas -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         /* Fundo Tecnológico / Dark Mode com gradiente vibrante */
         body { 
@@ -84,7 +102,7 @@
             margin: 15px auto; 
             display: block; 
             border: 3px solid rgba(255, 255, 255, 0.2); 
-            background: #fff; /* Fundo branco forçado para não quebrar a leitura da câmera */
+            background: #fff; 
             padding: 10px;
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
         }
@@ -218,7 +236,6 @@
             
             const linhas = textoCsv.split('\n').slice(1);
             
-            // Variáveis temporárias para não fazer a tela "piscar" a cada 3 segundos
             let htmlPagosTmp = '';
             let htmlPendentesTmp = '';
             let totalArrecadado = 0;
@@ -238,17 +255,14 @@
                 }
             });
 
-            // Substitui o HTML de uma vez só
             document.getElementById('lista-pagos').innerHTML = htmlPagosTmp || '<li style="color: #64748b; border: none;">Nenhum pagamento ainda</li>';
             document.getElementById('lista-pendentes').innerHTML = htmlPendentesTmp || '<li style="color: #64748b; border: none;">Todos pagaram! 🎉</li>';
 
-            // Formatação do valor em Reais
             document.getElementById('arrecadado').textContent = totalArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             
             let porcentagem = (totalArrecadado / meta) * 100;
             if (porcentagem > 100) porcentagem = 100;
             
-            // Anima a barra e coloca o número de % dentro dela
             document.getElementById('progress').style.width = porcentagem + '%';
             if (porcentagem > 12) { 
                 document.getElementById('porcentagem-texto').textContent = Math.round(porcentagem) + '%';
@@ -261,7 +275,6 @@
         }
     }
 
-    // Função para copiar a chave PIX
     function copiarPix() {
         const codigo = document.getElementById('codigo-pix').innerText;
         const botao = document.getElementById('btn-copiar');
@@ -279,10 +292,7 @@
         });
     }
 
-    // 1. Carrega os dados imediatamente ao abrir a página
     carregarDados();
-
-    // 2. Cria o looping para buscar novos pagamentos a cada 3 segundos
     setInterval(carregarDados, 3000);
 
 </script>
