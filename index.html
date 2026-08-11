@@ -3,148 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meta PIX da Galera</title>
-    <!-- Adicionando uma fonte mais moderna do Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Meta PIX 🚀</title>
+    <!-- Fontes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Fundo Tecnológico / Dark Mode com gradiente vibrante */
         body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #f3f4f6; /* Fundo mais suave */
+            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            background-attachment: fixed;
             padding: 20px 10px; 
-            color: #1f2937; 
+            color: #f8fafc; 
             margin: 0;
+            min-height: 100vh;
         }
+
+        /* Container estilo Glassmorphism (vidro translúcido) */
         .container { 
             max-width: 550px; 
             margin: 0 auto; 
-            background: white; 
-            padding: 30px 20px; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 30px 25px; 
+            border-radius: 24px; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.2); 
             text-align: center; 
         }
-        h2 { margin-top: 0; color: #111827; }
-        h3 { color: #059669; font-size: 1.5rem; margin-bottom: 10px; }
-        
-        /* Barra de Progresso Melhorada */
+
+        h2 { margin-top: 0; color: #e2e8f0; font-size: 1.4rem; font-weight: 600;}
+        h3 { color: #00f2fe; font-size: 1.8rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
+        .meta-valor { color: #fff; font-family: 'Space Mono', monospace; }
+
+        /* Barra de Progresso Neon */
         .progress-container { 
             width: 100%; 
-            background-color: #e5e7eb; 
+            background-color: rgba(0, 0, 0, 0.3); 
             border-radius: 999px; 
             margin: 25px 0; 
-            height: 28px;
+            height: 32px;
             overflow: hidden;
             position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
         }
         .progress-bar { 
             height: 100%; 
-            background: linear-gradient(90deg, #10b981, #059669); 
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); 
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
             border-radius: 999px; 
             width: 0%; 
             transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); 
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding-right: 10px;
-            color: white;
-            font-weight: bold;
-            font-size: 0.85rem;
+            padding-right: 12px;
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 0.9rem;
             white-space: nowrap;
         }
 
-        /* Área do PIX e Botão de Copiar */
+        /* Área do PIX */
         .pix-area {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
             padding: 20px;
             margin: 25px 0;
+            position: relative;
         }
+        
+        .valor-destaque { color: #a855f7; font-weight: 700; font-size: 1.2rem; }
+
         .qr-code { 
             max-width: 220px; 
             width: 100%; 
             border-radius: 12px; 
-            margin: 10px auto; 
+            margin: 15px auto; 
             display: block; 
-            border: 2px solid #e2e8f0; 
+            border: 3px solid rgba(255, 255, 255, 0.2); 
+            background: #fff; /* Fundo branco forçado para não quebrar a leitura da câmera */
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
         }
+
+        /* Input da Chave PIX */
         .chave-pix-container {
             display: flex;
             align-items: center;
-            background: #fff;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 5px;
-            margin-top: 15px;
-            overflow: hidden;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 10px;
+            padding: 6px;
+            margin-top: 20px;
         }
         .chave-pix-texto {
             flex: 1;
-            padding: 8px;
-            font-family: monospace;
+            padding: 10px;
+            font-family: 'Space Mono', monospace;
             font-size: 12px;
-            color: #475569;
+            color: #cbd5e1;
             overflow-x: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
+        /* Botão Vibrante */
         .btn-copiar {
-            background: #2563eb;
+            background: linear-gradient(90deg, #a855f7, #ec4899);
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
+            padding: 10px 18px;
+            border-radius: 8px;
             font-weight: 600;
+            font-family: 'Poppins', sans-serif;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
         }
-        .btn-copiar:hover { background: #1d4ed8; }
-        .btn-copiar.copiado { background: #059669; }
+        .btn-copiar:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+        }
+        .btn-copiar.copiado { 
+            background: linear-gradient(90deg, #10b981, #059669); 
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
 
-        /* Listas */
+        /* Listas de Participantes */
         .lists { 
             display: flex; 
-            gap: 20px; 
+            gap: 15px; 
             margin-top: 30px; 
         }
         @media (max-width: 480px) { .lists { flex-direction: column; gap: 15px; } }
+        
         .list-box { 
             flex: 1; 
-            background: #f9fafb; 
+            background: rgba(255, 255, 255, 0.03); 
             padding: 20px; 
-            border-radius: 12px; 
-            border: 1px solid #f3f4f6;
+            border-radius: 16px; 
+            border: 1px solid rgba(255, 255, 255, 0.08);
             text-align: left;
         }
-        .list-box h4 { margin-top: 0; display: flex; align-items: center; gap: 8px; }
+        .list-box h4 { margin-top: 0; color: #e2e8f0; display: flex; align-items: center; gap: 8px; font-size: 1rem;}
+        
         ul { list-style: none; padding: 0; margin: 0; }
-        li { padding: 10px 0; border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; gap: 10px; }
+        li { 
+            padding: 12px 0; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 0.95rem;
+        }
         li:last-child { border-bottom: none; }
         
-        .paid::before { content: '✅'; font-size: 0.9em; }
-        .pending::before { content: '⏳'; font-size: 0.9em; opacity: 0.7; }
-        .paid { color: #059669; font-weight: 600; }
-        .pending { color: #d97706; }
+        .paid { color: #34d399; font-weight: 600; }
+        .pending { color: #fb923c; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Nossa Meta: R$ <span id="meta">1.044,56</span></h2>
-    <h3>Arrecadado: R$ <span id="arrecadado">0,00</span></h3>
+    <h2>🎯 Meta da Galera: <span class="meta-valor">R$ 1.044,56</span></h2>
+    <h3><span style="font-size: 1.2rem; color: #94a3b8;">Arrecadado:</span> R$ <span id="arrecadado">0,00</span></h3>
     
     <div class="progress-container">
-        <!-- O span interno mostra a % dentro da barra -->
         <div class="progress-bar" id="progress"><span id="porcentagem-texto"></span></div>
     </div>
     
-    <p style="color: #6b7280; font-size: 0.9rem;"><strong>Previsão de encerramento:</strong> 15/09/2026</p>
+    <p style="color: #94a3b8; font-size: 0.85rem; margin-top: -10px;">Encerramento previsto para: <strong>15/09/2026</strong></p>
 
     <div class="pix-area">
-        <p>Faça o PIX de <strong>R$ 130,57</strong> lendo o QR Code ou copiando a chave abaixo:</p>
+        <p style="margin-top: 0;">Envie seu PIX de <span class="valor-destaque">R$ 130,57</span> lendo o QR Code ou copiando a chave abaixo:</p>
         
+        <!-- Imagem do QR Code -->
         <img src="WhatsApp Image 2026-08-11 at 14.45.12.jpeg" alt="QR Code PIX" class="qr-code">
         
+        <!-- Área de Copiar a Chave -->
         <div class="chave-pix-container">
             <div class="chave-pix-texto" id="codigo-pix">00020101021126580014BR.GOV.BCB.PIX0136b644cb9b-24d7-4b73-a202-e8e5c03f97c55204000053039865802BR5925Abner Jezrrel Lopes Dos S6009SAO PAULO62080504daqr63044AD3</div>
             <button class="btn-copiar" id="btn-copiar" onclick="copiarPix()">Copiar</button>
@@ -153,15 +192,15 @@
 
     <div class="lists">
         <div class="list-box">
-            <h4>Já Pagaram</h4>
+            <h4>✅ Status: Pagos</h4>
             <ul id="lista-pagos">
-                <li style="color: #9ca3af; font-size: 0.9rem; border: none;">Carregando...</li>
+                <li style="color: #64748b; font-size: 0.9rem; border: none;">Aguardando dados...</li>
             </ul>
         </div>
         <div class="list-box">
-            <h4>Faltam Pagar</h4>
+            <h4>⏳ Status: Pendentes</h4>
             <ul id="lista-pendentes">
-                <li style="color: #9ca3af; font-size: 0.9rem; border: none;">Carregando...</li>
+                <li style="color: #64748b; font-size: 0.9rem; border: none;">Aguardando dados...</li>
             </ul>
         </div>
     </div>
@@ -179,31 +218,29 @@
             
             const linhas = textoCsv.split('\n').slice(1);
             
-            const listaPagos = document.getElementById('lista-pagos');
-            const listaPendentes = document.getElementById('lista-pendentes');
-            listaPagos.innerHTML = '';
-            listaPendentes.innerHTML = '';
-            
+            // Variáveis temporárias para não fazer a tela "piscar" a cada 3 segundos
+            let htmlPagosTmp = '';
+            let htmlPendentesTmp = '';
             let totalArrecadado = 0;
 
             linhas.forEach(linha => {
                 const [nome, pagou] = linha.split(',');
                 
-                // Melhoria 3: Trava contra linhas em branco na planilha
                 if (!nome || nome.trim() === '') return;
 
-                const li = document.createElement('li');
-                li.textContent = nome.trim();
+                const nomeFormatado = nome.trim();
 
                 if (pagou && pagou.trim().toUpperCase() === "SIM") {
-                    li.classList.add('paid');
-                    listaPagos.appendChild(li);
+                    htmlPagosTmp += `<li class="paid">✅ ${nomeFormatado}</li>`;
                     totalArrecadado += valorPorPessoa;
                 } else {
-                    li.classList.add('pending');
-                    listaPendentes.appendChild(li);
+                    htmlPendentesTmp += `<li class="pending">⏳ ${nomeFormatado}</li>`;
                 }
             });
+
+            // Substitui o HTML de uma vez só
+            document.getElementById('lista-pagos').innerHTML = htmlPagosTmp || '<li style="color: #64748b; border: none;">Nenhum pagamento ainda</li>';
+            document.getElementById('lista-pendentes').innerHTML = htmlPendentesTmp || '<li style="color: #64748b; border: none;">Todos pagaram! 🎉</li>';
 
             // Formatação do valor em Reais
             document.getElementById('arrecadado').textContent = totalArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -212,19 +249,19 @@
             if (porcentagem > 100) porcentagem = 100;
             
             // Anima a barra e coloca o número de % dentro dela
-            setTimeout(() => {
-                document.getElementById('progress').style.width = porcentagem + '%';
-                if (porcentagem > 15) { // Só mostra o texto se a barra tiver tamanho suficiente
-                    document.getElementById('porcentagem-texto').textContent = Math.round(porcentagem) + '%';
-                }
-            }, 300); // Um leve delay extra faz a animação ficar mais charmosa ao abrir
+            document.getElementById('progress').style.width = porcentagem + '%';
+            if (porcentagem > 12) { 
+                document.getElementById('porcentagem-texto').textContent = Math.round(porcentagem) + '%';
+            } else {
+                document.getElementById('porcentagem-texto').textContent = '';
+            }
 
         } catch (erro) {
             console.error("Erro ao ler a planilha:", erro);
         }
     }
 
-    // Melhoria 1: Função para copiar a chave PIX
+    // Função para copiar a chave PIX
     function copiarPix() {
         const codigo = document.getElementById('codigo-pix').innerText;
         const botao = document.getElementById('btn-copiar');
@@ -233,7 +270,6 @@
             botao.innerText = 'Copiado!';
             botao.classList.add('copiado');
             
-            // Volta o botão ao normal depois de 2 segundos
             setTimeout(() => {
                 botao.innerText = 'Copiar';
                 botao.classList.remove('copiado');
@@ -243,7 +279,12 @@
         });
     }
 
+    // 1. Carrega os dados imediatamente ao abrir a página
     carregarDados();
+
+    // 2. Cria o looping para buscar novos pagamentos a cada 3 segundos
+    setInterval(carregarDados, 3000);
+
 </script>
 
 </body>
